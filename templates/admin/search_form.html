@@ -1,0 +1,26 @@
+{% load i18n static %}
+{% if cl.search_fields %}
+<div id="toolbar" class="mb-3">
+    <form id="changelist-search" method="get">
+        <div><!-- DIV needed for valid HTML -->
+            <div class="relative">
+                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
+                <input type="text" name="{{ search_var }}" value="{{ cl.query }}" id="searchbar" autofocus class="block p-2.5 pl-10 w-full text-sm rounded-lg border border-gray-700 bg-gray-600 placeholder-white text-white" placeholder="Search..." required>
+                <input class="text-black font-heads absolute right-2.5 bottom-2 bg-green-400 hover:bg-green-500 font-semibold rounded-md text-sm px-3 py-0.5" type="submit" value="{% translate 'Search' %}">
+            </div>
+        {% if show_result_count %}
+            <span class="small quiet">{% blocktranslate count counter=cl.result_count %}{{ counter }} result{% plural %}{{ counter }} results{% endblocktranslate %} (<a href="?{% if cl.is_popup %}{{ is_popup_var }}=1{% endif %}">{% if cl.show_full_result_count %}{% blocktranslate with full_result_count=cl.full_result_count %}{{ full_result_count }} total{% endblocktranslate %}{% else %}{% translate "Show all" %}{% endif %}</a>)</span>
+        {% endif %}
+        {% for pair in cl.params.items %}
+            {% if pair.0 != search_var %}<input type="hidden" name="{{ pair.0 }}" value="{{ pair.1 }}">{% endif %}
+        {% endfor %}
+        </div>
+        {% if cl.search_help_text %}
+        <br class="clear">
+        <div class="help">{{ cl.search_help_text }}</div>
+        {% endif %}
+    </form>
+</div>
+{% endif %}

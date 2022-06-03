@@ -1,0 +1,144 @@
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 3px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--cust-gray-600);
+    border-radius: 0;
+    background: var(--cust-gray-600);
+    border-radius: 16px;
+    box-shadow: inset 2px 2px 2px hsl(0deg 0% 100% / 25%),
+        inset -2px -2px 2px rgb(0 0 0 / 25%);
+}
+::-webkit-scrollbar-track {
+    background: var(--cust-gray-800);
+}
+/* hide scrollbar in navbar menu - chrome, opera, safari */
+#nav-sidebar::-webkit-scrollbar {
+    display: none;
+}
+#nav-sidebar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+/* admin */
+.modelsView .modelsList + .modelsList {
+    border-top: 1px solid #334155;
+    padding-top: 0.5rem;
+}
+.actionlist .activityLink {
+    padding: 8px 0 8px 25px;
+    position: relative;
+    word-wrap: break-word;
+    counter-increment: steps;
+}
+.actionlist .activityLink:before {
+    display: inline-block;
+    content: "\F4FA";
+    color: #0ac000;
+    font-family: "bootstrap-icons";
+    font-style: normal;
+    font-weight: 800;
+    padding-right: 10px;
+    font-display: block;
+    position: absolute;
+    left: 0;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1.5;
+    vertical-align: -0.125em !important;
+    -webkit-font-smoothing: antialiased;
+}
+.actionlist .changelink:before {
+    content: "\F3FF";
+    color: var(--cust-yellow-400);
+}
+.actionlist .deletelink:before {
+    content: "\F623";
+    color: #ff0000;
+}
+.actionTable:nth-child(even),
+.resultsRow:nth-child(even) {
+    background-color: #334155;
+}
+.actionTable:nth-child(odd),
+.resultsRow:nth-child(odd) {
+    background-color: #475569;
+}
+.resultsRow td,
+.resultsRow th,
+.actionTable td,
+.actionTable th,
+.modelsList td,
+.modelsList th {
+    padding: 0.5rem;
+    border: 1px solid #1e293b;
+}
+label.required {
+    font-size: 14px;
+    font-family: "Space Grotesk", sans-serif;
+    color: #c084fc;
+    line-height: 1.5;
+    font-weight: 600;
+}
+.tox-tinymce {
+    border: none;
+    margin: 0.5rem 0 1.5rem;
+}
+#fieldContainer p {
+    font-size: 12px;
+    font-family: "Space Grotesk", sans-serif;
+    color: #4ade80;
+    line-height: 1.5;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+#fieldContainer p a {
+    color: #fff;
+    padding: 2px 8px;
+    text-align: center;
+    background-color: #6366f1;
+    border-radius: 8px;
+}
+.related-widget-wrapper {
+    display: flex;
+    align-items: center;
+}
+.related-widget-wrapper a {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0 1.5rem 0.5rem;
+    padding: 12px 10px;
+    background: #312e81;
+    border-radius: 8px;
+}
+.datetimeshortcuts {
+    display: block;
+}
+#id_timeStamp_0,
+#id_timeStamp_1 {
+    margin-bottom: 10px;
+}
+.datetimeshortcuts:last-child {
+    margin-bottom: 1.5rem;
+}
+.datetimeshortcuts .date-icon:before {
+    content: "\F1EF";
+    color: #ffffff;
+    font-family: "bootstrap-icons";
+    font-weight: 800;
+    font-display: block;
+    vertical-align: -0.125em !important;
+    -webkit-font-smoothing: antialiased;
+}
+.datetimeshortcuts .clock-icon:before {
+    content: "\F102";
+    color: #ffffff;
+    font-family: "bootstrap-icons";
+    font-weight: 800;
+    font-display: block;
+    vertical-align: -0.125em !important;
+    -webkit-font-smoothing: antialiased;
+}
+/* end of admin */

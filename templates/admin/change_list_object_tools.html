@@ -1,0 +1,15 @@
+{% load i18n admin_urls %}
+
+{% block object-tools-items %}
+  {% if has_add_permission %}
+  {% comment %} <div class="block float-left ml-[5px] h-2"> {% endcomment %}
+    <li class="block float-left ml-[5px]">
+    {% comment %} <li class="mb-3 text-center text-xs self-center px-3 py-1 bg-green-600 hover:bg-green-700 text-white font-semibold font-heads rounded-lg"> {% endcomment %}
+      {% url cl.opts|admin_urlname:'add' as add_url %}
+      <a class="text-center text-xs px-3 py-1 bg-green-600 hover:bg-green-700 text-white font-semibold font-heads rounded-lg" href="{% add_preserved_filters add_url is_popup to_field %}" class="addlink">
+        {% blocktranslate with cl.opts.verbose_name as name %} Add {{ name }}{% endblocktranslate %}
+      </a>
+    </li>
+  {% comment %} </div> {% endcomment %}
+  {% endif %}
+{% endblock %}

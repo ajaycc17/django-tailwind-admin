@@ -1,0 +1,289 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {% tailwind_css %}
+        <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="shortcut icon" type="image/png" href="{% static 'images/orbitgadget.png'%}" />
+        <title>Tailwind Admin | OrbitGadget</title>
+    </head>
+    <body>
+        <header class="font-heads text-gray-200 bg-gray-900 body-font">
+            <div
+                class="max-w-7xl px-2 md:px-4 mx-auto flex flex-wrap py-3 flex-col md:flex-row items-center"
+            >
+                <a href="/"
+                    class="flex title-font font-medium items-center text-white mb-4 md:mb-0"
+                >
+                    <i class="text-xl text-yellow-400 bi bi-speedometer2"></i>
+                    <span class="ml-2 text-xl">Tail-admin</span>
+                </a>
+                <nav
+                    class="md:ml-auto flex flex-wrap items-center text-base justify-center"
+                >
+                    <a href="https://orbitgadget.com/blog/" class="mr-5 hover:text-indigo-300 font-semibold text-sm"
+                        >Blog</a
+                    >
+                    <a href="https://github.com/ajaycc17/" class="mr-5 hover:text-indigo-300 font-semibold text-sm"
+                        >GitHub</a
+                    >
+                </nav>
+                <a href="https://orbitgadget.com">
+                    <button
+                        class="inline-flex items-center bg-green-400 border-0 py-1 px-3 focus:outline-none hover:bg-green-500 rounded-lg text-sm mt-4 md:mt-0 text-black font-semibold"
+                    >
+                        OrbitGadget
+                        <svg
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            class="w-4 h-4 ml-1"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </a>
+            </div>
+        </header>
+        <!--main-section-->
+        <section class="text-gray-200 bg-gray-800 body-font overflow-hidden">
+            <div class="max-w-7xl px-2 md:px-4 mx-auto py-32">
+                <div class="border-b-2 border-gray-700 flex flex-wrap -m-12">
+                    <div class="p-12 md:w-1/2 flex flex-col items-start">
+                        <span
+                            class="inline-block py-1 px-2 rounded bg-indigo-500 text-white text-xs font-medium tracking-widest"
+                            >CATEGORY</span
+                        >
+                        <h2
+                            class="font-heads font-semibold text-2xl title-font text-lime-400 mt-4 mb-4"
+                        >
+                            This is the front page of the project, go to admin to see the admin panel
+                        </h2>
+                        <p class="leading-relaxed mb-8">
+                            This is a dummy front page for the project made using <a href="https://tailblocks.cc" class="text-sky-400">Tailblocks</a> and is not the interface for admin panel. You can access the admin panel by clicking the link below. To sign-in on backend you need to create a super user as well. Also see how to set up static files in Django in the article mentioned beside.
+                        </p>
+                        <div
+                            class="flex items-center flex-wrap pb-4 mb-4 border-b-2 border-gray-700 border-opacity-75 mt-auto w-full"
+                        >
+                            <a href="/admin" class="text-yellow-400 inline-flex items-center"
+                                >Go to Admin
+                                <svg
+                                    class="w-4 h-4 ml-2"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M5 12h14"></path>
+                                    <path d="M12 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                            <span
+                                class="text-gray-300 mr-3 inline-flex items-center ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-700"
+                            >
+                                <svg
+                                    class="w-4 h-4 mr-1"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                                    ></path>
+                                    <circle cx="12" cy="12" r="3"></circle></svg
+                                >1.2K
+                            </span>
+                            <span
+                                class="text-gray-300 inline-flex items-center leading-none text-sm"
+                            >
+                                <svg
+                                    class="w-4 h-4 mr-1"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"
+                                    ></path></svg
+                                >6
+                            </span>
+                        </div>
+                        <a class="inline-flex items-center">
+                            <img
+                                alt="blog"
+                                src="{%static 'images/Ajay Choudhury.png'%}"
+                                class="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center"
+                            />
+                            <span class="flex-grow flex flex-col pl-4">
+                                <span class="title-font font-medium text-white"
+                                    >Ajay Choudhury</span
+                                >
+                                <span
+                                    class="text-gray-400 text-xs tracking-widest mt-0.5"
+                                    >UI DEVELOPER</span
+                                >
+                            </span>
+                        </a>
+                    </div>
+                    <div class="p-12 md:w-1/2 flex flex-col items-start">
+                        <span
+                            class="inline-block py-1 px-2 rounded bg-indigo-500 text-white text-xs font-medium tracking-widest"
+                            >CATEGORY</span
+                        >
+                        <h2
+                            class="font-heads font-semibold text-2xl title-font text-lime-400 mt-4 mb-4"
+                        >
+                            Read more about how to set up the project from scratch, in this article
+                        </h2>
+                        <p class="leading-relaxed mb-8">
+                            Checkout how to setup the tailwind CSS for the project and how to create a superuser in Django for accessing the backend. Moreover the admin panel uses a few custom tags. See in the <a href="https://orbitgadget.com/blog/customize-django-admin-panel-with-tailwindcss/" class="text-sky-400">article</a>, to create your own template tags in Django and use them.
+                        </p>
+                        <div
+                            class="flex items-center flex-wrap pb-4 mb-4 border-b-2 border-gray-700 border-opacity-75 mt-auto w-full"
+                        >
+                            <a href="https://orbitgadget.com/blog/customize-django-admin-panel-with-tailwindcss/" class="text-yellow-400 inline-flex items-center"
+                                >Read Now
+                                <svg
+                                    class="w-4 h-4 ml-2"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M5 12h14"></path>
+                                    <path d="M12 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                            <span
+                                class="text-gray-300 mr-3 inline-flex items-center ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-700"
+                            >
+                                <svg
+                                    class="w-4 h-4 mr-1"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                                    ></path>
+                                    <circle cx="12" cy="12" r="3"></circle></svg
+                                >1.2K
+                            </span>
+                            <span
+                                class="text-gray-300 inline-flex items-center leading-none text-sm"
+                            >
+                                <svg
+                                    class="w-4 h-4 mr-1"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"
+                                    ></path></svg
+                                >6
+                            </span>
+                        </div>
+                        <a class="inline-flex items-center">
+                            <img
+                                alt="blog"
+                                src="{%static 'images/Ajay Choudhury.png'%}"
+                                class="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center"
+                            />
+                            <span class="flex-grow flex flex-col pl-4">
+                                <span class="title-font font-medium text-white"
+                                    >Ajay Choudhury</span
+                                >
+                                <span
+                                    class="text-gray-400 text-xs tracking-widest mt-0.5"
+                                    >DESIGNER</span
+                                >
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="w-full flex justify-center py-8">
+                    <a href="/admin">
+                        <button
+                            class="inline-flex items-center font-heads font-semibold text-sm text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded-lg"
+                        >
+                            Go to Admin<svg
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                class="w-4 h-4 ml-1"
+                                viewBox="0 0 24 24"
+                            >
+                                <path d="M5 12h14M12 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!--footer-->
+        <footer class="text-gray-300 bg-gray-900 body-font">
+            <div
+                class="max-w-7xl px-2 md:px-4 mx-auto py-6 flex items-center sm:flex-row flex-col"
+            >
+                <a
+                    class="flex title-font font-medium items-center md:justify-start justify-center text-white"
+                >
+                    <i class="text-xl text-yellow-400 bi bi-speedometer2"></i>
+                    <span class="ml-2 text-xl">Tail-admin</span>
+                </a>
+                <p
+                    class="text-sm text-gray-300 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4"
+                >
+                    © {% now "Y" %} Tail-admin —
+                    <a
+                        href="https://orbitgadget.com/"
+                        class="text-gray-400 ml-1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >@ajaycc17</a
+                    >
+                </p>
+                <a href="#"
+                    class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start"
+                >
+                    <i class="bi bi-info-circle pr-2"></i>Help
+                </a>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,17 @@
+{% extends "admin/base.html" %}
+{% load static %}
+{% block title %}
+    {% if subtitle %}
+        {{ subtitle }} | 
+    {% endif %}
+    {{ title }} | {{ site_title|default:_('Django site admin') }}
+{% endblock %}
+
+{% block branding %}
+    <a id="site-name" href="{% url 'admin:index' %}" class="flex title-font font-medium items-center text-white mb-4 md:mb-0">
+        <i class="text-xl text-yellow-400 bi bi-speedometer2"></i>
+        <span class="ml-2 text-xl">Tail-admin</span>
+    </a>
+{% endblock %}
+<script src="https://cdn.tiny.cloud/1/your-api/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+{% block nav-global %}{% endblock %}

@@ -1,0 +1,210 @@
+{% load i18n static %}<!DOCTYPE html>
+{% load extraz %}
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
+<head>
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.csss" %}{% endblock %}">
+<link rel="stylesheet" type="text/css" href="{% block customstylesheet %}{% static "css/stylesheet.css" %}{% endblock %}">
+{% if not is_popup and is_nav_sidebar_enabled %}
+  <link rel="stylesheet" type="text/css" href="{% static "admin/css/nav_sidebar.csss" %}">
+  <script src="{% static 'admin/js/nav_sidebar.js' %}" defer></script>
+{% endif %}
+{% block extrastyle %}{% endblock %}
+{% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.csss" %}{% endblock %}">{% endif %}
+{% block extrahead %}{% endblock %}
+{% block responsive %}
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive.csss" %}">
+    {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive_rtl.css" %}">{% endif %}
+{% endblock %}
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
+{% load static tailwind_tags %}
+{% tailwind_css %}
+<link rel="preload stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" as="style">
+<!--fonts-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-gray-800 {% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
+  data-admin-utc-offset="{% now "Z" %}">
+
+<!-- Container -->
+<div id="container" class="mx-auto bg-gray-800 text-white">
+  {% if not is_popup %}
+  <!-- Header -->
+  {% block header %}
+  <div class="fixed z-50 w-full px-2 md:px-4 bg-gray-900">
+    <div id ="header" class="max-w-7xl mx-auto flex justify-between items-center py-2">
+        <div id="branding" class="flex items-center">
+          {% block branding %}{% endblock %}
+        </div>
+        <div class="flex items-center">
+          <span class="mr-4 md:mr-8 text-white hover:text-indigo-400 cursor-pointer font-heads font-semibold" onclick="showNavMenu()">
+            Navigation
+          </span>
+          <script>
+            function showNavMenu(){
+              var element = document.getElementById("nav-sidebar");
+              if (element.classList.contains("hidden")) {
+                element.classList.remove("hidden");
+              } else {
+                element.classList.add("hidden");
+              }
+            }
+          </script>
+          {% if has_permission %}
+          {% block welcome-msg %}
+          <div class="flex items-center cursor-pointer" onclick="showLogMenu()">
+            <img src="https://gravatar.com/avatar/{{ user.email|md5 }}?d=wavatar" class="rounded-full mr-2" alt="{{user.username}}" width="30px" height="auto">
+            <strong class="font-heads text-sm text-lime-400">{% firstof user.get_short_name user.get_username %}</strong>
+            <i class="bi bi-caret-down-fill pl-1 text-sm"></i>
+          </div>
+          {% endblock %}
+          {%endif%}
+        </div>
+        {% block nav-global %}{% endblock %}
+    </div>
+  </div>
+  <!--menu-log-->
+  <div id="menu-log" class="top-[46px] z-40 hidden text-gray-200 bg-gray-900 fixed right-0 border-t-2 border-dashed border-gray-700 sm:border-t-0 sm:w-72 w-full py-2 sm:px-3 px-2">
+    {% block usertools %}
+      {% if has_permission %}
+        <ul id="user-tools" class="font-semibold text-sm">
+          {% block userlinks %}
+            {% if site_url %}
+                <a href="{{ site_url }}">
+                  <li class="flex items-center justify-between border-b border-gray-700 py-2">
+                    <span><i class="bi bi-globe2 pr-2 text-lime-400"></i>{% translate 'View site' %}</span><i class="bi bi-chevron-right"></i>
+                  </li>
+                </a>
+            {% endif %}
+            {% if user.is_active and user.is_staff %}
+              {% url 'django-admindocs-docroot' as docsroot %}
+              {% if docsroot %}
+                  <a href="{{ docsroot }}">
+                    <li class="flex items-center justify-between border-b border-gray-700 py-2">
+                      <span><i class="bi bi-book-half pr-2 text-lime-400"></i>{% translate 'Documentation' %}</span><i class="bi bi-chevron-right"></i>
+                    </li>
+                  </a>
+              {% endif %}
+            {% endif %}
+            {% if user.has_usable_password %}
+            <a href="{% url 'admin:password_change' %}">
+              <li class="flex items-center justify-between border-b border-gray-700 py-2">
+                <span><i class="bi bi-unlock-fill pr-2 text-lime-400"></i>{% translate 'Change password' %}</span><i class="bi bi-chevron-right"></i>
+              </li>
+            </a>
+            {% endif %}
+            <a href="{% url 'admin:logout' %}">
+              <li class="flex items-center justify-between py-2">
+                <span><i class="bi bi-box-arrow-right pr-2 text-lime-400"></i>{% translate 'Log out' %}</span><i class="bi bi-chevron-right"></i>
+              </li>
+            </a>
+          {% endblock %}
+        </ul>
+      {% endif %}
+    {% endblock %}
+  </div>
+  <!--menu-sidebar-nav-->
+  <div id="nav-sidebar" class="hidden top-[47px] z-40 text-gray-200 text-sm bg-gray-900 fixed left-0 border-t-2 border-dashed border-gray-700 sm:w-80 w-full py-2 sm:px-1 px-2 overflow-y-scroll bottom-0 overflow-x-hidden">
+    {% if not is_popup and is_nav_sidebar_enabled %}
+      {% block nav-sidebar %}
+        {% include "admin/nav_sidebar.html" %}
+      {% endblock %}
+    {% endif %}
+  </div>
+  {% endblock %}
+  <!-- END Header -->
+  <!--everything-except-header-->
+  <div class="pt-[54px]">    
+    <div class="max-w-7xl w-full mx-auto px-2 md:px-4">
+      {% block breadcrumbs %}
+        <div class="text-sm text-white">
+          <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+          {% if title %} &middot; {{ title }}{% endif %}
+        </div>
+      {% endblock %}
+      {% endif %}
+      <!--main-->
+      <div class="main" id="main">
+        <div class="content">
+          {% block messages %}
+            {% if messages %}
+              <ul class="messagelist">{% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+              {% endfor %}</ul>
+            {% endif %}
+          {% endblock messages %}
+          <!-- Content -->
+          <div id="content" class="flex flex-col md:flex-row gap-x-4 {% block coltype %}colM{% endblock %}">
+            <div class="w-full md:w-3/4 adminMain">
+              {% block pretitle %}{% endblock %}
+                {% block content_title %}
+                  {% if title %}
+                  <h1 class="text-lg font-heads font-semibold py-4 text-white">{{ title }}</h1>
+                  {% endif %}
+                {% endblock %}
+                {% block content_subtitle %}{% if subtitle %}<h2 class="text-xl font-heads font-semibold text-lime-400 pb-4">{{ subtitle }}</h2>{% endif %}{% endblock %}
+                {% block content %}
+                  {% block object-tools %}{% endblock %}
+                  {{ content }}
+                {% endblock %}
+              
+            </div>
+            <div class="w-full md:w-1/4 adminSidebar">
+              {% block sidebar %}{% endblock %}
+              <br class="clear">
+            </div>
+          </div>
+          <!-- END Content -->
+          {% block footer %}<div id="footer"></div>{% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--footer-->
+<footer class="text-gray-300 bg-gray-900 body-font mt-6">
+  <div
+      class="max-w-7xl px-2 md:px-4 mx-auto py-6 flex items-center sm:flex-row flex-col"
+  >
+      <a
+          class="flex title-font font-medium items-center md:justify-start justify-center text-white"
+      >
+          <i class="text-xl text-yellow-400 bi bi-speedometer2"></i>
+          <span class="ml-2 text-xl">Tail-admin</span>
+      </a>
+      <p
+          class="text-sm text-gray-300 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4"
+      >
+          © {% now "Y" %} Tail-admin —
+          <a
+              href="https://orbitgadget.com/"
+              class="text-gray-400 ml-1"
+              target="_blank"
+              rel="noopener noreferrer"
+              >@ajaycc17</a
+          >
+      </p>
+      <a href="#"
+          class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start"
+      >
+          <i class="bi bi-info-circle pr-2"></i>Help
+      </a>
+  </div>
+</footer>
+</body>
+<script>
+  function showLogMenu(){
+    var element = document.getElementById("menu-log");
+    if (element.classList.contains("hidden")) {
+      element.classList.remove("hidden");
+    } else {
+      element.classList.add("hidden");
+    }
+  }
+</script>
+</html>

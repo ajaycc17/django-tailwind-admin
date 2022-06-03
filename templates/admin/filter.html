@@ -1,0 +1,10 @@
+{% load i18n %}
+<h3 class="text-sm mb-2 font-heads font-semibold text-sky-400">
+    {% blocktranslate with filter_title=title %}<i class="bi bi-sort-up pr-2 text-yellow-500"></i>By {{ filter_title }} {% endblocktranslate %}
+</h3>
+<ul class="grid grid-cols-3 gap-x-4 gap-y-2 mb-4">
+{% for choice in choices %}
+    <li class="text-center rounded-md bg-indigo-500 inline-block text-sm font-semibold font-heads {% if choice.selected %}selected{% endif %}">
+    <a href="{{ choice.query_string|iriencode }}" title="{{ choice.display }}">{{ choice.display }}</a></li>
+{% endfor %}
+</ul>

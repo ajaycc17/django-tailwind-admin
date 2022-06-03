@@ -1,0 +1,18 @@
+{% load i18n admin_urls %}
+<div class="submit-row">
+{% block submit-row %}
+<div class="grid grid-cols-1">
+    {% if show_save %}
+        <input type="submit" class="rounded-lg cursor-pointer bg-green-400 hover:bg-green-500 text-sm uppercase font-heads py-2 font-semibold text-center mb-2 text-black" value="{% translate 'Save' %}" class="default" name="_save">
+    {% endif %}
+    {% if show_delete_link and original %}
+    {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
+    <div class="deletelink-box rounded-lg cursor-pointer bg-red-600 hover:bg-red-600 text-sm uppercase font-heads py-2 font-semibold text-center mb-2 text-white"><a href="{% add_preserved_filters delete_url %}" class="deletelink">{% translate "Delete" %}</a></div>
+    {% endif %}
+    {% if show_save_as_new %}<input type="submit" value="{% translate 'Save as new' %}" name="_saveasnew">{% endif %}
+    {% if show_save_and_add_another %}<input type="submit" class="rounded-lg cursor-pointer bg-indigo-400 hover:bg-indigo-500 text-sm uppercase font-heads py-2 font-semibold text-center mb-2 text-white" value="{% translate 'Save and add another' %}" name="_addanother">{% endif %}
+    {% if show_save_and_continue %}<input type="submit" class="rounded-lg cursor-pointer bg-sky-400 hover:bg-sky-500 text-sm uppercase font-heads py-2 font-semibold text-center mb-2 text-white" value="{% if can_change %}{% translate 'Save and continue editing' %}{% else %}{% translate 'Save and view' %}{% endif %}" name="_continue">{% endif %}
+    {% if show_close %}<a href="{% url opts|admin_urlname:'changelist' %}" class="closelink">{% translate 'Close' %}</a>{% endif %}
+</div>
+    {% endblock %}
+</div>

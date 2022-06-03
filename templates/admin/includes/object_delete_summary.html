@@ -1,0 +1,7 @@
+{% load i18n %}
+<h2 class="font-heads text-sm font-semibold py-2 text-indigo-400">{% translate "Summary" %}</h2>
+<ul class="bg-gray-900 p-3 rounded-lg text-sm font-heads text-lime-400 font-semibold">
+    {% for model_name, object_count in model_count %}
+    <li>{{ model_name|capfirst }}: {{ object_count }}</li>
+    {% endfor %}
+</ul>

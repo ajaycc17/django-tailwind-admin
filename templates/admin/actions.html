@@ -1,0 +1,46 @@
+{% load i18n %}
+{% load widget_tweaks %}
+<div class=" flex justify-between items-center bg-gray-900 p-2 mb-3 rounded-lg">
+  {% block actions %}
+    <div class="flex items-center justify-center">
+      {% block actions-form %}
+        {% for field in action_form %}
+          {% if field.label %}
+            <label class="flex flex-row items-center">
+              <span class="text-sm font-heads font-semibold text-yellow-400">
+                {{ field.label}} 
+              </span>
+          {% endif %}
+            {{ field|add_class:'md:w-[250px] w-[100px] text-sm rounded-lg py-0.5 px-2 mx-2 bg-gray-700 placeholder-gray-400 text-white' }}
+          {% if field.label %}
+            </label>
+          {% endif %}
+        {% endfor %}
+      {% endblock %}
+      {% block actions-submit %}
+      <button type="submit" class="bg-green-400 text-black text-sm px-2 py-0.5 font-semibold font-heads rounded-lg" title="{% translate "Run the selected action" %}" name="index" value="{{ action_index|default:0 }}">{% translate "Go" %}</button>
+      {% endblock %}
+    </div>
+    {% block actions-counter %}
+    {% if actions_selection_counter %}
+      <style>
+        .adminSidebar{
+          display: none !important;
+        }
+        .adminMain{
+          width: 100% !important;
+          justify-content: center !important;
+        }
+      </style>
+      <span class="action-counter bg-sky-400 py-0.5 text-sm text-black font-semibold font-heads px-3 rounded-lg" data-actions-icnt="{{ cl.result_list|length }}">{{ selection_note }}</span>
+      {% if cl.result_count != cl.result_list|length %}
+      <span class="all hidden">{{ selection_note_all }}</span>
+      <span class="question hidden">
+          <a href="#" title="{% translate "Click here to select the objects across all pages" %}">{% blocktranslate with cl.result_count as total_count %}Select all {{ total_count }} {{ module_name }}{% endblocktranslate %}</a>
+      </span>
+      <span class="clear hidden"><a href="#">{% translate "Clear selection" %}</a></span>
+      {% endif %}
+    {% endif %}
+    {% endblock %}
+  {% endblock %}
+</div>

@@ -1,0 +1,82 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/login.csss" %}">
+{{ form.media }}
+{% endblock %}
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+{% block usertools %}{% endblock %}
+{% block nav-global %}{% endblock %}
+{% block nav-sidebar %}{% endblock %}
+{% block content_title %}{% endblock %}
+{% block breadcrumbs %}{% endblock %}
+{% block content %}
+{% if form.errors and not form.non_field_errors %}
+  <p class="errornote">
+  {% if form.errors.items|length == 1 %}{% translate "Please correct the error below." %}{% else %}{% translate "Please correct the errors below." %}{% endif %}
+  </p>
+{% endif %}
+{% if form.non_field_errors %}
+  {% for error in form.non_field_errors %}
+    <p class="errornote">
+        {{ error }}
+    </p>
+  {% endfor %}
+{% endif %}
+
+<div id="content-main">
+
+{% if user.is_authenticated %}
+<p class="errornote">
+{% blocktranslate trimmed %}
+    You are authenticated as {{ username }}, but are not authorized to
+    access this page. Would you like to login to a different account?
+{% endblocktranslate %}
+</p>
+{% endif %}
+
+{% load widget_tweaks %}
+<div>
+  <style>
+    .adminSidebar{
+      display: none !important;
+    }
+    .adminMain{
+      width: 100% !important;
+      justify-content: center !important;
+    }
+  </style>
+  <div class="overflow-y-auto overflow-x-hidden z-50 w-full md:inset-0 md:h-full justify-center items-center mt-5">
+    <div class="relative w-full max-w-md h-full md:h-auto mx-auto">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-900">
+        <div class="py-6 px-6 lg:px-8">
+          <h1 class="mb-4 text-xl font-semibold font-heads text-center text-white">
+            {% trans "Sign In" %} on OG-Admin 
+          </h1>
+          <form action="{{ app_path }}" method="post" id="login-form">
+            {% csrf_token %}
+            <div class="mb-4">
+              <label for="id_username" class="block mb-2 text-sm font-medium text-gray-300">Username</label>
+              {% render_field form.username class="text-sm rounded-lg block w-full p-2.5 bg-gray-700 placeholder-gray-400 text-white" %}
+              <div class="text-red-500 text-xs pt-1">{{ form.username.errors }}</div>
+            </div>
+            <div class="mb-6">
+              <label for="id_password" class="block mb-2 text-sm font-medium text-gray-300">Your password</label>
+              {{ form.password|add_class:"text-sm rounded-lg block w-full p-2.5 bg-gray-700 dark:placeholder-gray-400 text-white" }}
+              <div class="text-red-500 text-xs pt-1">{{ form.password.errors|striptags }}</div>
+            </div>
+            <input type="hidden" name="next" value="{{ next }}">
+            {% url 'admin_password_reset' as password_reset_url %}
+            {% if password_reset_url %}
+            <div class="password-reset-link">
+              <a href="{{ password_reset_url }}">{% translate 'Forgotten your password or username?' %}</a>
+            </div>
+            {% endif %}
+            <button type="submit" class="w-full mb-4 text-white bg-green-600 hover:bg-green-700 focus:outline-none font-semibold rounded-lg px-5 py-2.5 text-center">Sign In</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
