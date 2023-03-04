@@ -850,10 +850,6 @@ select {
   margin-top: 1.5rem;
 }
 
-.ml-3 {
-  margin-left: 0.75rem;
-}
-
 .mt-\[-94px\] {
   margin-top: -94px;
 }
@@ -930,16 +926,16 @@ select {
   height: 3rem;
 }
 
-.h-5 {
-  height: 1.25rem;
-}
-
 .h-2 {
   height: 0.5rem;
 }
 
 .h-full {
   height: 100%;
+}
+
+.h-5 {
+  height: 1.25rem;
 }
 
 .w-4 {
